@@ -19,10 +19,23 @@ macro_rules! build_fn {
 	)
 }
 
+// Again printing the stringified version of the expression as well as computing it
+macro_rules! print_ex {
+	($e:expr) => (
+		println!("{:?} = {:?}", stringify!($e), $e);
+	)
+}
+
 fn main() {
 	a_macro!();
 	x_and_y!(x => 10);
 	x_and_y!(y => 10 + 20);
 	build_fn!(hello);
 	hello();
+
+	print_ex!({
+		let y = 20;
+		let x = 10;
+		x + y + 10 * 3 * 100
+	})
 }
