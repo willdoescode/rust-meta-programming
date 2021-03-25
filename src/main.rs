@@ -55,7 +55,9 @@ macro_rules! compr {
 }
 
 macro_rules! new_map {
-	($($key: expr => $val: expr),*) => {
+	// ($($key: expr => $val: expr),*) => {
+	// Change to + because expression has to happen at least once
+	($($key: expr => $val: expr),+) => {
 		{
 			use std::collections::HashMap;
 			let mut map = HashMap::new();
