@@ -6,6 +6,7 @@ macro_rules! a_macro {
 
 // expr is a designator type, $e can be any expression
 macro_rules! x_and_y {
+// These act like a match statement
 	(x => $e:expr) => (println!("X: {}", $e));
 	(y => $e:expr) => (println!("Y: {}", $e));
 }
