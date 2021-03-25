@@ -27,6 +27,16 @@ macro_rules! print_ex {
 	)
 }
 
+macro_rules! overload {
+	($l:expr; and $r:expr) => (
+		println!("{:?} and {:?} is {:?}", stringify!($l), stringify!($r), $l && $r);
+	);
+
+	($l:expr; or $r:expr) => (
+		println!("{:?} or {:?} is {:?}", stringify!($l), stringify!($r), $l || $r);
+	);
+}
+
 fn main() {
 	a_macro!();
 	x_and_y!(x => 10);
@@ -38,5 +48,8 @@ fn main() {
 		let y = 20;
 		let x = 10;
 		x + y + 10 * 3 * 100
-	})
+	});
+
+	overload!(true; and false);
+	overload!(false; or true);
 }
