@@ -55,7 +55,7 @@ macro_rules! compr {
 }
 
 macro_rules! new_map {
-	($($key: expr => $val: expr)*) => {
+	($($key: expr => $val: expr),*) => {
 		{
 			use std::collections::HashMap;
 			let mut map = HashMap::new();
@@ -93,6 +93,6 @@ fn main() {
 	let evens = compr![x | x <- [1;10], even];
 	println!("{:?}", evens);
 
-	let map = new_map!{5 => 7 9 => 2 11 => 22};
+	let map = new_map!{5 => 7, 9 => 2, 11 => 22};
 	println!("{:?}", map);
 }
