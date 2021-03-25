@@ -72,6 +72,23 @@ macro_rules! new_map {
 	}
 }
 
+macro_rules! calc {
+	(eval $e:expr) => {{
+		{
+			let val: usize = $e;
+			println!("{} = {}", stringify!($e), val);
+		}
+	}};
+
+	// Support for more evals in a row
+	(eval $e:expr, $(eval $es:expr),+) => {
+		{
+			calc! {eval $e}
+			calc! { $(eval $es),+ }
+		}
+	}
+}
+
 fn main() {
 	a_macro!();
 	x_and_y!(x => 10);
@@ -97,4 +114,9 @@ fn main() {
 
 	let map = new_map!{5 => 7, 9 => 2, 11 => 22};
 	println!("{:?}", map);
+
+	calc! {
+		eval 4 * 5,
+		eval 10 * 20
+	};
 }
