@@ -37,6 +37,39 @@ macro_rules! overload {
 	);
 }
 
+// List comp macro
+macro_rules! compr {
+	($id1: ident | $id2: ident <- [$start: expr ; $end: expr] , $cond: expr) => {
+		{
+			let mut vec = Vec::new();
+
+			for num in $start..$end + 1 {
+				if $cond(num) {
+					vec.push(num);
+				}
+			}
+
+			vec
+		}
+	}
+}
+
+macro_rules! new_map {
+	($($key: expr => $val: expr)*) => {
+		{
+			use std::collections::HashMap;
+			let mut map = HashMap::new();
+
+			// repeat as many times as there are more expressions
+			$(
+				map.insert($key, $val);
+			)*
+
+			map
+		}
+	}
+}
+
 fn main() {
 	a_macro!();
 	x_and_y!(x => 10);
@@ -52,4 +85,14 @@ fn main() {
 
 	overload!(true; and false);
 	overload!(false; or true);
+
+	fn even(x: i32) -> bool {
+		x % 2 == 0
+	}
+
+	let evens = compr![x | x <- [1;10], even];
+	println!("{:?}", evens);
+
+	let map = new_map!{5 => 7 9 => 2 11 => 22};
+	println!("{:?}", map);
 }
